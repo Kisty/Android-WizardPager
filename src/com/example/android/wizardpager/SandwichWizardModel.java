@@ -17,22 +17,23 @@
 package com.example.android.wizardpager;
 
 import com.example.android.wizardpager.wizard.model.AbstractWizardModel;
+import com.example.android.wizardpager.wizard.model.PageList;
 import com.example.android.wizardpager.wizard.model.BranchPage;
 import com.example.android.wizardpager.wizard.model.CustomerInfoPage;
 import com.example.android.wizardpager.wizard.model.MultipleFixedChoicePage;
-import com.example.android.wizardpager.wizard.model.PageList;
 import com.example.android.wizardpager.wizard.model.SingleFixedChoicePage;
+import com.example.android.wizardpager.wizard.model.WizardPage;
 
 import android.content.Context;
 
-public class SandwichWizardModel extends AbstractWizardModel {
+public class SandwichWizardModel extends AbstractWizardModel<WizardPage,PageList<WizardPage>> {
     public SandwichWizardModel(Context context) {
         super(context);
     }
 
     @Override
-    protected PageList onNewRootPageList() {
-        return new PageList(
+    protected PageList<WizardPage> onNewRootPageList() {
+        return new PageList<WizardPage>(
                 new BranchPage(this, "Order type")
                         .addBranch("Sandwich",
                                 new SingleFixedChoicePage(this, "Bread")

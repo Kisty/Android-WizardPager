@@ -21,17 +21,19 @@ import java.util.ArrayList;
 /**
  * Represents a list of wizard pages.
  */
-public class PageList extends ArrayList<Page> implements PageTreeNode {
-    public PageList(Page... pages) {
-        for (Page page : pages) {
+public class PageList<P extends Page<P>>
+        extends ArrayList<P>
+        implements PageTreeNode<P> {
+    public PageList(P... pages) {
+        for (P page : pages) {
             add(page);
         }
     }
 
     @Override
-    public Page findByKey(String key) {
-        for (Page childPage : this) {
-            Page found = childPage.findByKey(key);
+    public P findByKey(String key) {
+        for (P childPage : this) {
+            P found = childPage.findByKey(key);
             if (found != null) {
                 return found;
             }
@@ -41,8 +43,8 @@ public class PageList extends ArrayList<Page> implements PageTreeNode {
     }
 
     @Override
-    public void flattenCurrentPageSequence(ArrayList<Page> dest) {
-        for (Page childPage : this) {
+    public void flattenCurrentPageSequence(ArrayList<P> dest) {
+        for (P childPage : this) {
             childPage.flattenCurrentPageSequence(dest);
         }
     }

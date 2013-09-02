@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * A page asking for a name and an email.
  */
-public class CustomerInfoPage extends Page {
+public class CustomerInfoPage extends WizardPage {
     public static final String NAME_DATA_KEY = "name";
     public static final String EMAIL_DATA_KEY = "email";
 

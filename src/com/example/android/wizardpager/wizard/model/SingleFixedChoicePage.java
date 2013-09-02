@@ -27,7 +27,7 @@ import java.util.Arrays;
 /**
  * A page offering the user a number of mutually exclusive choices.
  */
-public class SingleFixedChoicePage extends Page {
+public class SingleFixedChoicePage extends WizardPage {
     protected ArrayList<String> mChoices = new ArrayList<String>();
 
     public SingleFixedChoicePage(ModelCallbacks callbacks, String title) {

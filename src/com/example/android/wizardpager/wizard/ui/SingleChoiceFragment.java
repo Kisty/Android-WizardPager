@@ -19,6 +19,7 @@ package com.example.android.wizardpager.wizard.ui;
 import com.example.android.wizardpager.R;
 import com.example.android.wizardpager.wizard.model.Page;
 import com.example.android.wizardpager.wizard.model.SingleFixedChoicePage;
+import com.example.android.wizardpager.wizard.model.WizardPage;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -37,10 +38,10 @@ import java.util.List;
 public class SingleChoiceFragment extends ListFragment {
     private static final String ARG_KEY = "key";
 
-    private PageFragmentCallbacks mCallbacks;
+    private PageFragmentCallbacks<WizardPage> mCallbacks;
     private List<String> mChoices;
     private String mKey;
-    private Page mPage;
+    private WizardPage mPage;
 
     public static SingleChoiceFragment create(String key) {
         Bundle args = new Bundle();

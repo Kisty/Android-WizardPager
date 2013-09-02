@@ -31,6 +31,11 @@ public class MultipleFixedChoicePage extends SingleFixedChoicePage {
     }
 
     @Override
+    protected MultipleFixedChoicePage getThis() {
+        return this;
+    }
+
+    @Override
     public Fragment createFragment() {
         return MultipleChoiceFragment.create(getKey());
     }

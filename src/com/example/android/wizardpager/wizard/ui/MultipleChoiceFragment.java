@@ -17,8 +17,9 @@
 package com.example.android.wizardpager.wizard.ui;
 
 import com.example.android.wizardpager.R;
-import com.example.android.wizardpager.wizard.model.MultipleFixedChoicePage;
 import com.example.android.wizardpager.wizard.model.Page;
+import com.example.android.wizardpager.wizard.model.MultipleFixedChoicePage;
+import com.example.android.wizardpager.wizard.model.WizardPage;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -40,10 +41,10 @@ import java.util.Set;
 public class MultipleChoiceFragment extends ListFragment {
     private static final String ARG_KEY = "key";
 
-    private PageFragmentCallbacks mCallbacks;
+    private PageFragmentCallbacks<WizardPage> mCallbacks;
     private String mKey;
     private List<String> mChoices;
-    private Page mPage;
+    private WizardPage mPage;
 
     public static MultipleChoiceFragment create(String key) {
         Bundle args = new Bundle();

@@ -18,9 +18,10 @@ package com.example.android.wizardpager.wizard.ui;
 
 import com.example.android.wizardpager.R;
 import com.example.android.wizardpager.wizard.model.AbstractWizardModel;
+import com.example.android.wizardpager.wizard.model.PageList;
 import com.example.android.wizardpager.wizard.model.ModelCallbacks;
-import com.example.android.wizardpager.wizard.model.Page;
 import com.example.android.wizardpager.wizard.model.ReviewItem;
+import com.example.android.wizardpager.wizard.model.WizardPage;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -38,9 +39,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ReviewFragment extends ListFragment implements ModelCallbacks {
+public class ReviewFragment extends ListFragment implements ModelCallbacks<WizardPage> {
     private Callbacks mCallbacks;
-    private AbstractWizardModel mWizardModel;
+    private AbstractWizardModel<WizardPage,PageList<WizardPage>> mWizardModel;
     private List<ReviewItem> mCurrentReviewItems;
 
     private ReviewAdapter mReviewAdapter;
@@ -98,9 +99,9 @@ public class ReviewFragment extends ListFragment implements ModelCallbacks {
     }
 
     @Override
-    public void onPageDataChanged(Page changedPage) {
+    public void onPageDataChanged(WizardPage changedPage) {
         ArrayList<ReviewItem> reviewItems = new ArrayList<ReviewItem>();
-        for (Page page : mWizardModel.getCurrentPageSequence()) {
+        for (WizardPage page : mWizardModel.getCurrentPageSequence()) {
             page.getReviewItems(reviewItems);
         }
         Collections.sort(reviewItems, new Comparator<ReviewItem>() {

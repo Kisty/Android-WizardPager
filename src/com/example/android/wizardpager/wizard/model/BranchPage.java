@@ -36,13 +36,13 @@ public class BranchPage extends SingleFixedChoicePage {
     }
 
     @Override
-    public Page findByKey(String key) {
+    public WizardPage findByKey(String key) {
         if (getKey().equals(key)) {
-            return this;
+            return getThis();
         }
 
         for (Branch branch : mBranches) {
-            Page found = branch.childPageList.findByKey(key);
+            WizardPage found = branch.childPageList.findByKey(key);
             if (found != null) {
                 return found;
             }
@@ -52,7 +52,7 @@ public class BranchPage extends SingleFixedChoicePage {
     }
 
     @Override
-    public void flattenCurrentPageSequence(ArrayList<Page> destination) {
+    public void flattenCurrentPageSequence(ArrayList<WizardPage> destination) {
         super.flattenCurrentPageSequence(destination);
         for (Branch branch : mBranches) {
             if (branch.choice.equals(mData.getString(Page.SIMPLE_DATA_KEY))) {
@@ -62,9 +62,9 @@ public class BranchPage extends SingleFixedChoicePage {
         }
     }
 
-    public BranchPage addBranch(String choice, Page... childPages) {
-        PageList childPageList = new PageList(childPages);
-        for (Page page : childPageList) {
+    public BranchPage addBranch(String choice, WizardPage... childPages) {
+        PageList<WizardPage> childPageList = new PageList<WizardPage>(childPages);
+        for (WizardPage page : childPageList) {
             page.setParentKey(choice);
         }
         mBranches.add(new Branch(choice, childPageList));
@@ -107,7 +107,7 @@ public class BranchPage extends SingleFixedChoicePage {
 
     private static class Branch {
         public String choice;
-        public PageList childPageList;
+        public PageList<WizardPage> childPageList;
 
         private Branch(String choice, PageList childPageList) {
             this.choice = choice;

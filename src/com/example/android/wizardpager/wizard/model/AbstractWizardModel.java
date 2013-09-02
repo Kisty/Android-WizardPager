@@ -28,11 +28,11 @@ import java.util.List;
  *
  * To create an actual wizard model, extend this class and implement {@link #onNewRootPageList()}.
  */
-public abstract class AbstractWizardModel implements ModelCallbacks {
+public abstract class AbstractWizardModel<P extends Page<P>,L extends PageList<P>> implements ModelCallbacks<P> {
     protected Context mContext;
 
     private List<ModelCallbacks> mListeners = new ArrayList<ModelCallbacks>();
-    private PageList mRootPageList;
+    private L mRootPageList;
 
     public AbstractWizardModel(Context context) {
         mContext = context;
@@ -42,10 +42,10 @@ public abstract class AbstractWizardModel implements ModelCallbacks {
     /**
      * Override this to define a new wizard model.
      */
-    protected abstract PageList onNewRootPageList();
+    protected abstract L onNewRootPageList();
 
     @Override
-    public void onPageDataChanged(Page page) {
+    public void onPageDataChanged(P page) {
         // can't use for each because of concurrent modification (review fragment
         // can get added or removed and will register itself as a listener)
         for (int i = 0; i < mListeners.size(); i++) {
@@ -78,7 +78,7 @@ public abstract class AbstractWizardModel implements ModelCallbacks {
 
     public Bundle save() {
         Bundle bundle = new Bundle();
-        for (Page page : getCurrentPageSequence()) {
+        for (P page : getCurrentPageSequence()) {
             bundle.putBundle(page.getKey(), page.getData());
         }
         return bundle;
@@ -88,8 +88,8 @@ public abstract class AbstractWizardModel implements ModelCallbacks {
      * Gets the current list of wizard steps, flattening nested (dependent) pages based on the
      * user's choices.
      */
-    public List<Page> getCurrentPageSequence() {
-        ArrayList<Page> flattened = new ArrayList<Page>();
+    public List<P> getCurrentPageSequence() {
+        ArrayList<P> flattened = new ArrayList<P>();
         mRootPageList.flattenCurrentPageSequence(flattened);
         return flattened;
     }

@@ -18,6 +18,6 @@ package com.example.android.wizardpager.wizard.ui;
 
 import com.example.android.wizardpager.wizard.model.Page;
 
-public interface PageFragmentCallbacks {
-    Page onGetPage(String key);
+public interface PageFragmentCallbacks<P extends Page<P>> {
+    P onGetPage(String key);
 }

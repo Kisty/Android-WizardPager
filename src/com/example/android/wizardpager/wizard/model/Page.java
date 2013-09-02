@@ -23,8 +23,9 @@ import java.util.ArrayList;
 
 /**
  * Represents a single page in the wizard.
+ * @typeparam P Base page type
  */
-public abstract class Page implements PageTreeNode {
+public abstract class Page<P extends Page<P>> implements PageTreeNode<P> {
     /**
      * The key into {@link #getData()} used for wizards with simple (single) values.
      */
@@ -49,10 +50,6 @@ public abstract class Page implements PageTreeNode {
         return mData;
     }
 
-    public String getTitle() {
-        return mTitle;
-    }
-
     public boolean isRequired() {
         return mRequired;
     }
@@ -62,22 +59,22 @@ public abstract class Page implements PageTreeNode {
     }
 
     @Override
-    public Page findByKey(String key) {
-        return getKey().equals(key) ? this : null;
+    public P findByKey(String key) {
+        return getKey().equals(key) ? getThis() : null;
     }
 
     @Override
-    public void flattenCurrentPageSequence(ArrayList<Page> dest) {
-        dest.add(this);
+    public void flattenCurrentPageSequence(ArrayList<P> dest) {
+        dest.add(getThis());
     }
+
+    protected abstract P getThis();
 
     public abstract Fragment createFragment();
 
     public String getKey() {
         return (mParentKey != null) ? mParentKey + ":" + mTitle : mTitle;
     }
-
-    public abstract void getReviewItems(ArrayList<ReviewItem> dest);
 
     public boolean isCompleted() {
         return true;
@@ -92,8 +89,8 @@ public abstract class Page implements PageTreeNode {
         mCallbacks.onPageDataChanged(this);
     }
 
-    public Page setRequired(boolean required) {
+    public P setRequired(boolean required) {
         mRequired = required;
-        return this;
+        return getThis();
     }
 }
