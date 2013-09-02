@@ -39,6 +39,8 @@ import android.widget.Button;
 
 import java.util.List;
 
+import uk.co.imagitech.imagitechlibrary.VeryQuickQuestionWizardModel;
+
 public class MainActivity extends FragmentActivity implements
         PageFragmentCallbacks,
         ReviewFragment.Callbacks,
@@ -48,7 +50,7 @@ public class MainActivity extends FragmentActivity implements
 
     private boolean mEditingAfterReview;
 
-    private AbstractWizardModel mWizardModel = new SandwichWizardModel(this);
+    private AbstractWizardModel mWizardModel = new VeryQuickQuestionWizardModel(this);
 
     private boolean mConsumePageSelectedEvent;
 

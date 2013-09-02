@@ -35,3 +35,6 @@ project.properties
 ant.properties
 build.xml
 proguard-project.txt
+
+# Android Studio directory
+.idea/
