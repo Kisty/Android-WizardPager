@@ -19,6 +19,8 @@ package com.example.android.wizardpager;
 import com.example.android.wizardpager.wizard.model.AbstractWizardModel;
 import com.example.android.wizardpager.wizard.model.ModelCallbacks;
 import com.example.android.wizardpager.wizard.model.Page;
+import com.example.android.wizardpager.wizard.model.PageList;
+import com.example.android.wizardpager.wizard.model.WizardPage;
 import com.example.android.wizardpager.wizard.ui.PageFragmentCallbacks;
 import com.example.android.wizardpager.wizard.ui.ReviewFragment;
 import com.example.android.wizardpager.wizard.ui.StepPagerStrip;
@@ -39,25 +41,23 @@ import android.widget.Button;
 
 import java.util.List;
 
-import uk.co.imagitech.imagitechlibrary.VeryQuickQuestionWizardModel;
-
 public class MainActivity extends FragmentActivity implements
-        PageFragmentCallbacks,
+        PageFragmentCallbacks<WizardPage>,
         ReviewFragment.Callbacks,
-        ModelCallbacks {
+        ModelCallbacks<WizardPage> {
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
 
     private boolean mEditingAfterReview;
 
-    private AbstractWizardModel mWizardModel = new VeryQuickQuestionWizardModel(this);
+    private AbstractWizardModel<WizardPage,PageList<WizardPage>> mWizardModel = new SandwichWizardModel(this);
 
     private boolean mConsumePageSelectedEvent;
 
     private Button mNextButton;
     private Button mPrevButton;
 
-    private List<Page> mCurrentPageSequence;
+    private List<WizardPage> mCurrentPageSequence;
     private StepPagerStrip mStepPagerStrip;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -180,7 +180,7 @@ public class MainActivity extends FragmentActivity implements
     }
 
     @Override
-    public AbstractWizardModel onGetModel() {
+    public AbstractWizardModel<WizardPage,PageList<WizardPage>> onGetModel() {
         return mWizardModel;
     }
 
@@ -198,7 +198,7 @@ public class MainActivity extends FragmentActivity implements
     }
 
     @Override
-    public void onPageDataChanged(Page page) {
+    public void onPageDataChanged(WizardPage page) {
         if (page.isRequired()) {
             if (recalculateCutOffPage()) {
                 mPagerAdapter.notifyDataSetChanged();
@@ -208,7 +208,7 @@ public class MainActivity extends FragmentActivity implements
     }
 
     @Override
-    public Page onGetPage(String key) {
+    public WizardPage onGetPage(String key) {
         return mWizardModel.findByKey(key);
     }
 

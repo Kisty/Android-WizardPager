@@ -31,7 +31,7 @@ import java.util.List;
 public abstract class AbstractWizardModel<P extends Page<P>,L extends PageList<P>> implements ModelCallbacks<P> {
     protected Context mContext;
 
-    private List<ModelCallbacks> mListeners = new ArrayList<ModelCallbacks>();
+    private List<ModelCallbacks<P>> mListeners = new ArrayList<ModelCallbacks<P>>();
     private L mRootPageList;
 
     public AbstractWizardModel(Context context) {
@@ -62,7 +62,7 @@ public abstract class AbstractWizardModel<P extends Page<P>,L extends PageList<P
         }
     }
 
-    public Page findByKey(String key) {
+    public P findByKey(String key) {
         return mRootPageList.findByKey(key);
     }
 
@@ -72,7 +72,7 @@ public abstract class AbstractWizardModel<P extends Page<P>,L extends PageList<P
         }
     }
 
-    public void registerListener(ModelCallbacks listener) {
+    public void registerListener(ModelCallbacks<P> listener) {
         mListeners.add(listener);
     }
 
@@ -94,7 +94,7 @@ public abstract class AbstractWizardModel<P extends Page<P>,L extends PageList<P
         return flattened;
     }
 
-    public void unregisterListener(ModelCallbacks listener) {
+    public void unregisterListener(ModelCallbacks<P> listener) {
         mListeners.remove(listener);
     }
 }

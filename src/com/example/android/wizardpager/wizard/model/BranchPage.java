@@ -31,7 +31,7 @@ import java.util.List;
 public class BranchPage extends SingleFixedChoicePage {
     private List<Branch> mBranches = new ArrayList<Branch>();
 
-    public BranchPage(ModelCallbacks callbacks, String title) {
+    public BranchPage(ModelCallbacks<WizardPage> callbacks, String title) {
         super(callbacks, title);
     }
 
@@ -109,7 +109,7 @@ public class BranchPage extends SingleFixedChoicePage {
         public String choice;
         public PageList<WizardPage> childPageList;
 
-        private Branch(String choice, PageList childPageList) {
+        private Branch(String choice, PageList<WizardPage> childPageList) {
             this.choice = choice;
             this.childPageList = childPageList;
         }

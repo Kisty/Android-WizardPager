@@ -18,6 +18,7 @@ package com.example.android.wizardpager.wizard.ui;
 
 import com.example.android.wizardpager.R;
 import com.example.android.wizardpager.wizard.model.CustomerInfoPage;
+import com.example.android.wizardpager.wizard.model.WizardPage;
 
 import android.app.Activity;
 import android.content.Context;
@@ -34,7 +35,7 @@ import android.widget.TextView;
 public class CustomerInfoFragment extends Fragment {
     private static final String ARG_KEY = "key";
 
-    private PageFragmentCallbacks mCallbacks;
+    private PageFragmentCallbacks<WizardPage> mCallbacks;
     private String mKey;
     private CustomerInfoPage mPage;
     private TextView mNameView;
@@ -83,7 +84,7 @@ public class CustomerInfoFragment extends Fragment {
             throw new ClassCastException("Activity must implement PageFragmentCallbacks");
         }
 
-        mCallbacks = (PageFragmentCallbacks) activity;
+        mCallbacks = (PageFragmentCallbacks<WizardPage>) activity;
     }
 
     @Override

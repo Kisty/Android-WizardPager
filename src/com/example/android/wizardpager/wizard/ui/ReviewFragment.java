@@ -123,7 +123,7 @@ public class ReviewFragment extends ListFragment implements ModelCallbacks<Wizar
     }
 
     public interface Callbacks {
-        AbstractWizardModel onGetModel();
+        AbstractWizardModel<WizardPage, PageList<WizardPage>> onGetModel();
         void onEditScreenAfterReview(String pageKey);
     }
 
